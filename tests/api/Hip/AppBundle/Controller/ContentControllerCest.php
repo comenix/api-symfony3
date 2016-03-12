@@ -108,7 +108,7 @@ class ContentControllerCest
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(array(
-            'href'  => '/api/v1/contents/1'
+            'href'  => '/1.0/contents/1'
         ));
     }
 

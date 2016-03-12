@@ -1,11 +1,20 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /1.0
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+    prefix:   /1.0
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+    prefix:   /1.0
 
 # view all routes: app/console debug:router
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /api/doc
+    prefix:   /1.0/doc
 
 hip_app:
     resource: "@HipAppBundle/Resources/config/routing.yml"
-    prefix:   /api/v1/
+    prefix:   /1.0

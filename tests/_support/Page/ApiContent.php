@@ -4,7 +4,7 @@ namespace Page;
 class ApiContent extends ApiBase
 {
     // include url of current page
-    public static $URL = '/api/v1/contents';
+    public static $URL = '/1.0/contents';
 
     /**
      * Declare UI map for this page here. CSS or XPath allowed.
