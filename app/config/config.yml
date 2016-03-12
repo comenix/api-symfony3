@@ -86,6 +86,11 @@ sensio_framework_extra:
     security:    { annotations: true }
     psr_message: { enabled: false }
 
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Hip\AppBundle\Entity\User
+
 fos_rest:
     versioning: true
     param_fetcher_listener: true

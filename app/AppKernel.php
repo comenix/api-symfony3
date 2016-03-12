@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new Hip\AppBundle\HipAppBundle(),
         ];
 
