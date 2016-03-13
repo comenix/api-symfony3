@@ -102,6 +102,7 @@ class ContentControllerCest
         ));
     }
 
+
     public function getContentsCollectionWithHateoasSelfHref(ApiTester $I)
     {
         $I->sendGET(Page\ApiContent::route('', false));

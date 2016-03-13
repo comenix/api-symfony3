@@ -15,7 +15,7 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=127.0.0.1;dbname=hiphiparray_api'
+            dsn: 'mysql:host=127.0.0.1;dbname=hiphiparray'
             user: 'root'
             password: 'strongpassword'
             dump: tests/_data/dump.sql

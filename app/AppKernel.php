@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new Hip\AppBundle\HipAppBundle(),
         ];
 

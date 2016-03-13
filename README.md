@@ -16,6 +16,7 @@ php bin/console debug:router
 Symfony clear cache
 ```
 bin/console cache:clear --no-debug --env=prod
+bin/console cache:clear --no-debug --env=dev
 ```
 
 

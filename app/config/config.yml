@@ -86,15 +86,6 @@ sensio_framework_extra:
     security:    { annotations: true }
     psr_message: { enabled: false }
 
-fos_oauth_server:
-    db_driver: orm
-    client_class:        Hip\AppBundle\Entity\Client
-    access_token_class:  Hip\AppBundle\Entity\AccessToken
-    refresh_token_class: Hip\AppBundle\Entity\RefreshToken
-    auth_code_class:     Hip\AppBundle\Entity\AuthCode
-    service:
-        user_provider: fos_user.user_provider.username
-
 fos_user:
     db_driver: orm
     firewall_name: main
