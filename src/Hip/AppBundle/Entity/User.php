@@ -1,15 +1,17 @@
 <?php
-
 namespace Hip\AppBundle\Entity;
 
-use Hip\User\Model\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use FOS\OAuthServerBundle\Model\ClientInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass="Hip\User\Repository\UserRepository")
- * @ORM\Table(name="users")
+ * @ORM\Table(name="fos_user")
  *
  * @Hateoas\Relation(
  *     "self",
@@ -19,33 +21,45 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  */
-class User extends BaseEntity implements UserInterface
+class User extends BaseUser
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
+    protected $id;
 
     /**
-     * @return int
+     * @ORM\ManyToMany(targetEntity="Hip\AppBundle\Entity\Client")
+     * @ORM\JoinTable(name="fos_user__to__oauth_clients",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="client_id", referencedColumnName="id")}
+     * )
+     * @var ArrayCollection
      */
-    public function getId()
+    protected $allowedClients;
+
+    public function __construct()
     {
-        return $this->id;
+        parent::__construct();
+        $this->allowedClients = new ArrayCollection();
     }
 
-    /**
-     * @param int $id
-     * @return User
-     */
-    public function setId($id)
+    public function isAuthorizedClient(ClientInterface $client)
     {
-        $this->id = $id;
-        return $this;
+        return $this->getAllowedClients()->contains($client);
+    }
+
+    public function addClient(ClientInterface $client)
+    {
+        if (!$this->allowedClients->contains($client)) {
+            $this->allowedClients->add($client);
+        }
+    }
+
+    public function getAllowedClients()
+    {
+        return $this->allowedClients;
     }
 }

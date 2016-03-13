@@ -18,12 +18,11 @@ security:
             security: false
 
         oauth_token:
-            pattern:    ^/1.0/oauth/v2/token
+            pattern:    ^/oauth/v2/token
             security:   false
 
         oauth_authorize:
-            pattern:    ^/1.0/oauth/v2/auth
-            # Add your favorite authentication process here
+            pattern:    ^/oauth/v2/auth
             provider:   fos_userbundle
             http_basic: true
 
@@ -39,6 +38,4 @@ security:
 #        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/1.0/contents/, role: ROLE_API_USER }
-        - { path: ^/1.0/, role: IS_AUTHENTICATED_ANONYMOUSLY }
 

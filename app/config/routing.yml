@@ -1,14 +1,14 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-    prefix:   /1.0
+    prefix:   /
 
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
-    prefix:   /1.0
+    prefix:   /
 
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
-    prefix:   /1.0
+    prefix:   /
 
 # view all routes: app/console debug:router
 NelmioApiDocBundle:
