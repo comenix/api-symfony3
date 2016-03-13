@@ -1,6 +1,6 @@
 <?php
 
-use \Hip\AppBundle\Form\Handler\FormHandler;
+use \Hip\AppBundle\Form\Handler\ContentFormHandler;
 use \Hip\Content\Form\Type\ContentType;
 
 /**
@@ -37,8 +37,8 @@ class FormHandlerTest extends \Codeception\TestCase\Test
     public function testCanGrabFromServiceContainer()
     {
         static::assertInstanceOf(
-            'Hip\AppBundle\Form\Handler\FormHandler',
-            $this->serviceContainer->get('hip.app_bundle.form.handler.content_form_handler')
+            'Hip\AppBundle\Form\Handler\ContentFormHandler',
+            $this->serviceContainer->get('hip.app_bundle.content_form_handler')
         );
     }
 
@@ -48,10 +48,8 @@ class FormHandlerTest extends \Codeception\TestCase\Test
      */
     public function testFormHandlerThrowsWhenGivenInvalidFormType()
     {
-        new FormHandler($this->getMockEntityManager(), $this->formFactory, new \StdClass());
+        new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, new \StdClass());
     }
-
-
 
     /**
      * @expectedException Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException
@@ -59,11 +57,9 @@ class FormHandlerTest extends \Codeception\TestCase\Test
      */
     public function testProcessFormThrowsWhenGivenInvalidObjectForAGivenFormType()
     {
-        $formHandler = new FormHandler($this->getMockEntityManager(), $this->formFactory, ContentType::class);
+        $formHandler = new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, ContentType::class);
         $formHandler->processForm(new \StdClass(), [], 'POST');
     }
-
-
 
     /**
      * @expectedException Hip\AppBundle\Exception\InvalidFormException
@@ -84,14 +80,16 @@ class FormHandlerTest extends \Codeception\TestCase\Test
         /**
          * Process Form
          */
-        $formHandler = new FormHandler($this->getMockEntityManager(), $formFactory, ContentType::class);
+        $formHandler = new ContentFormHandler($this->getMockEntityManager(), $formFactory, ContentType::class);
         $formHandler->processForm(new \Hip\AppBundle\Entity\Content(), [], 'POST');
     }
 
 
+
     public function testProcessFormReturnsValidObjectOnSuccess()
     {
-        $formHandler = new FormHandler($this->getMockEntityManager(), $this->formFactory, ContentType::class);
+
+        $formHandler = new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, ContentType::class);
 
         $parameters = ['title' => 'main title', 'body' => 'yada yada yada'];
         static::assertInstanceOf(

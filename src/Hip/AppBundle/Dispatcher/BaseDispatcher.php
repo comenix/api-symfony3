@@ -3,6 +3,7 @@
 namespace Hip\AppBundle\Dispatcher;
 
 use Hip\AppBundle\Exception\InvalidFormException;
+use Hip\AppBundle\Form\Handler\BaseFormHandler;
 use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
@@ -22,7 +23,7 @@ class BaseDispatcher implements DispatcherInterface
     protected $repository;
 
     /**
-     * @var FormHandler
+     * @var BaseFormHandler
      */
     protected $formHandler;
 

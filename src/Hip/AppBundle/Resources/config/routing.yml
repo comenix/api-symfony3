@@ -7,3 +7,7 @@
 contents:
     type:     rest
     resource: Hip\AppBundle\Controller\ContentController
+
+users:
+    type:     rest
+    resource: Hip\AppBundle\Controller\UserController

@@ -2,9 +2,9 @@
 
 namespace Hip\User\Dispatcher;
 
+use FOS\UserBundle\Model\UserManager;
 use Hip\AppBundle\Dispatcher\BaseDispatcher;
-use Hip\AppBundle\Form\Handler\FormHandler;
-use Hip\AppBundle\Entity\User;
+use Hip\AppBundle\Form\Handler\UserFormHandler;
 use Hip\User\Repository\UserRepository;
 
 /**
@@ -16,12 +16,15 @@ class UserDispatcher extends BaseDispatcher
     /**
      * UserDispatcher constructor.
      * @param UserRepository $userRepository
-     * @param FormHandler $formHandler
+     * @param UserFormHandler $formHandler
+     * @param UserManager $userManager
      */
-    public function __construct(UserRepository $userRepository, FormHandler $formHandler)
+    public function __construct(UserRepository $userRepository, UserFormHandler $formHandler, UserManager $userManager)
     {
         $this->repository = $userRepository;
         $this->formHandler = $formHandler;
-        $this->object = new User();
+        $user = $userManager->createUser();
+        $user->setEnabled(true);
+        $this->object = $user;
     }
 }

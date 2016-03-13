@@ -44,7 +44,6 @@ class Content extends BaseEntity implements ContentInterface
      */
     private $body;
 
-
     /**
      * @param $array
      * @return Content

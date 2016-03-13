@@ -3,7 +3,6 @@
 namespace Hip\User\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,11 +23,19 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('body', TextType::class)
-        ;
+            ->add('email', 'email')
+            ->add('username', null)
+            ->add(
+                'plainPassword',
+                'repeated',
+                [
+                    'type'           => 'password',
+                    'first_options'  => ['label' => 'password'],
+                    'second_options' => ['label' => 'password_confirmation'],
+                ]
+            );
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      *
@@ -36,9 +43,11 @@ class UserType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Hip\AppBundle\Entity\User'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Hip\AppBundle\Entity\User'
+            )
+        );
     }
 
     /**
@@ -46,6 +55,6 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'Hip_AppBundle_user';
+        return 'Hip_AppBundle_content';
     }
 }

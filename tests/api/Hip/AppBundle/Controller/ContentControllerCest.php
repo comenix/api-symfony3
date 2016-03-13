@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ContentControllerCest
 {
+
     public function _before(ApiTester $I)
     {
+        //TODO: setup authentication
     }
 
     public function _after(ApiTester $I)
@@ -101,7 +103,6 @@ class ContentControllerCest
             'title'  => 'about'
         ));
     }
-
 
     public function getContentsCollectionWithHateoasSelfHref(ApiTester $I)
     {

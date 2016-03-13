@@ -86,9 +86,15 @@ sensio_framework_extra:
     security:    { annotations: true }
     psr_message: { enabled: false }
 
+lexik_jwt_authentication:
+    private_key_path: %jwt_private_key_path%
+    public_key_path:  %jwt_public_key_path%
+    pass_phrase:      %jwt_key_pass_phrase%
+    token_ttl:        %jwt_token_ttl%
+
 fos_user:
     db_driver: orm
-    firewall_name: main
+    firewall_name: api
     user_class: Hip\AppBundle\Entity\User
 
 fos_rest:
@@ -106,8 +112,7 @@ fos_rest:
             json: true
     format_listener:
         rules:
-            - { path: ^/1.0, priorities: [ json ], fallback_format: json, prefer_extension: true }
-            - { path: ^/, priorities: [ html ], fallback_format: html, prefer_extension: true }
+            - { path: ^/, priorities: [ json ], fallback_format: json, prefer_extension: true }
     allowed_methods_listener: true
     access_denied_listener:
         json: true

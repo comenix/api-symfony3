@@ -2,8 +2,8 @@
 
 namespace Hip\User\Provider;
 
+use Hip\AppBundle\Form\Handler\UserFormHandler;
 use Hip\AppBundle\Provider\BaseProvider;
-use Hip\AppBundle\Form\Handler\FormHandler;
 use Hip\AppBundle\Entity\User;
 use Hip\User\Repository\UserRepository;
 
@@ -16,9 +16,9 @@ class UserProvider extends BaseProvider
     /**
      * UserProvider constructor.
      * @param UserRepository $userRepository
-     * @param FormHandler $formHandler
+     * @param UserFormHandler $formHandler
      */
-    public function __construct(UserRepository $userRepository, FormHandler $formHandler)
+    public function __construct(UserRepository $userRepository, UserFormHandler $formHandler)
     {
         $this->repository = $userRepository;
         $this->formHandler = $formHandler;

@@ -2,6 +2,7 @@
 namespace Hip\AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use FOS\OAuthServerBundle\Model\ClientInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,9 +30,21 @@ class User extends BaseUser
      */
     protected $id;
 
-    public function __construct()
+    /**
+     * @return int
+     */
+    public function getId()
     {
-        parent::__construct();
-        $this->allowedClients = new ArrayCollection();
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Content
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 }

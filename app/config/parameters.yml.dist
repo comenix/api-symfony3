@@ -19,3 +19,9 @@ parameters:
     secret: Change-this-secret!-znKbm6-wJfh.Z5w2*QsJWxZ
 
     session_name:      HHASESSION
+
+    # Lexik JWT Authentication Bundle
+    jwt_private_key_path: %kernel.root_dir%/var/jwt/private.pem
+    jwt_public_key_path:  %kernel.root_dir%/var/jwt/public.pem
+    jwt_key_pass_phrase:  knnFKvPr7AkBLy1Ou7zb
+    jwt_token_ttl:        86400

@@ -12,20 +12,20 @@ use Hip\AppBundle\Entity\BaseEntity;
  * Class FormHandler
  * @package Hip\AppBundle\Form\Handler
  */
-class FormHandler
+class BaseFormHandler
 {
     /** @var ObjectManager $entityManager */
-    private $entityManager;
+    protected $entityManager;
     /** @var FormFactoryInterface $formFactory */
-    private $formFactory;
+    protected $formFactory;
     /** @var string $formType */
-    private $formType;
+    protected $formType;
 
     /**
      * FormHandler constructor.
      * @param ObjectManager $objectManager
      * @param FormFactoryInterface $formFactory
-     * @param FormTypeInterface $formType
+     * @param string $formType
      */
     public function __construct(ObjectManager $objectManager, FormFactoryInterface $formFactory, string $formType)
     {
@@ -50,16 +50,13 @@ class FormHandler
     public function processForm($object, array $parameters, $method)
     {
         // if no html, then no csrf protection is okay
-        //TODO: perhaps set "'csrf_protection' => false" in the config.xml instead (eg. disable_csrf_role: ROLE_API)
         $options = ['method' => $method, 'csrf_protection' => false];
         $form = $this->formFactory->create($this->formType, $object, $options);
-//        $form = $this->formFactory->create('Hip\Content\Form\Type\ContentType', $object, $options);
 
         /**
          * The second parameter ($clearMissing) to allow patch being applied atomically (only patched fields are saved)
-         * //TODO: patch doesn't follow the RESTful convention 100% correctly, but it's close enough
+         * patch doesn't follow the RESTful convention 100% correctly, but it's close enough
          * see http://williamdurand.fr/2014/02/14/please-do-not-patch-like-an-idiot/
-         *
          */
         $form->submit($parameters, $method !== 'PATCH');
 

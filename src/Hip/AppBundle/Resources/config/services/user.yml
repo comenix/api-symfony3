@@ -1,0 +1,37 @@
+services:
+    hip.app_bundle.user_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine", getRepository]
+        arguments:
+            - Hip\AppBundle\Entity\User
+
+    hip.app_bundle.user_dispatcher:
+        class: Hip\User\Dispatcher\UserDispatcher
+        arguments:
+            - "@hip.app_bundle.user_repository"
+            - "@hip.app_bundle.user_form_handler"
+            - "@fos_user.user_manager"
+
+    hip.app_bundle.user_provider:
+        class: Hip\User\Provider\UserProvider
+        arguments:
+            - "@hip.app_bundle.user_repository"
+            - "@hip.app_bundle.user_form_handler"
+
+    # http://symfony.com/doc/current/book/forms.html#defining-your-forms-as-services
+    hip.app_bundle.user_form_type:
+        class: Hip\User\Form\Type\UserType
+        tags:
+            - { name: form.type, alias: user_form }
+
+    hip.app_bundle.user_form_handler:
+        class: Hip\AppBundle\Form\Handler\UserFormHandler
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@fos_user.registration.form.factory"
+            - Hip\User\Form\Type\UserType
+
+    hip.app_bundle.user_events:
+        class: Hip\User\Services\UserEvents
+        arguments:
+            - "@event_dispatcher"

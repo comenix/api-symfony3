@@ -1,5 +1,4 @@
 security:
-
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
@@ -12,19 +11,31 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
 
-        default:
-            pattern: ^/
-            anonymous: ~
+        login:
+            pattern:   ^/1.0/login_check
+            provider:  fos_userbundle
+            stateless: true
+            anonymous: true
+            form_login:
+                login_path:               /1.0/logins
+                check_path:               /1.0/login_check
+                username_parameter:       _username
+                password_parameter:       _password
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        api:
+            pattern:   ^/1.0
+            provider:  fos_userbundle
+            stateless: true
+            anonymous: true
+            lexik_jwt: ~
 
     access_control:
-#        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
-#        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/admin/, role: ROLE_ADMIN }
-
+        - { path: ^/1.0/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/1.0/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/1.0/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/1.0/admin/, role: ROLE_ADMIN }
+        - { path: ^/1.0,       roles: IS_AUTHENTICATED_FULLY }

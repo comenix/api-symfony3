@@ -69,7 +69,6 @@ vendor/codeception/codeception/codecept build
 
 
 
-
 ### Running Tests
 
 ```
@@ -78,8 +77,67 @@ vendor/bin/codecept run api
 ```
 
 
+### Register test with Postman
+
+
+POST
+- http://api.hiphiparray.dev/app_dev.php/1.0/registers
+
+Headers
+- Accept application/json
+- Content-Type application/json
+
+Body (raw)
+```json
+{"email":"test@example.com","username":"tester","plainPassword":{"first":"password","second":"password"}}
+```
+
+
+### Json Web Token Authentication
+
+
+#### SSH keys
+
+Generate SSH keys
+
+```bash
+$ mkdir -p app/var/jwt
+$ openssl genrsa -out app/var/jwt/private.pem -aes256 4096
+$ openssl rsa -pubout -in app/var/jwt/private.pem -out app/var/jwt/public.pem
+```
+
+
+#### Get the token
+
+POST
+- http://api.hiphiparray.dev/app_dev.php/1.0/login_check
+
+Headers
+- Accept application/json
+- Content-Type application/json
+
+Body (raw)
+```json
+{"_username":"tester","_password":"password"}
+```
+
+#### Use the token
+
+GET
+- http://api.hiphiparray.dev/app_dev.php/1.0/contents/1
+
+Headers
+- Accept            application/json
+- Content-Type      application/json
+- Authorization     Bearer {token}
+
+
 ### API Docs
 
 ```
 http://api.hiphiparray.dev/api/doc
 ```
+
+### Authentication Notes
+
+- See https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md

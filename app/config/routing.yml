@@ -1,12 +1,11 @@
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-    prefix:   /
-
 # view all routes: app/console debug:router
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /1.0/doc
+    prefix: /doc
 
 hip_app:
     resource: "@HipAppBundle/Resources/config/routing.yml"
-    prefix:   /1.0
+    prefix: /1.0
+
+api_login_check:
+    path: /1.0/login_check
