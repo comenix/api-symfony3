@@ -76,14 +76,14 @@ class ContentControllerCest
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
-            array(
+            [
                 'id' => 1,
                 'title'  => 'home',
-            ),
-            array(
+            ],
+            [
                 'id' => 2,
                 'title'  => 'about',
-            )
+            ]
         );
     }
 
@@ -94,12 +94,12 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?limit=1'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(array(
-            array(
+        $I->seeResponseContainsJson([
+            [
                 'id' => 1,
                 'title'  => 'home',
-            ),
-        ));
+            ],
+        ]);
     }
 
     public function getContentsCollectionWithOffset(ApiTester $I)
@@ -109,9 +109,7 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?offset=1'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(array(
-            'title'  => 'about'
-        ));
+        $I->seeResponseContainsJson(['title'  => 'about']);
     }
 
     public function getContentsCollectionWithLimitAndOffset(ApiTester $I)
@@ -121,9 +119,7 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?offset=1&limit=3'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(array(
-            'title'  => 'about'
-        ));
+        $I->seeResponseContainsJson(['title'  => 'about']);
     }
 
     public function getContentsCollectionWithHateoasSelfHref(ApiTester $I)
@@ -133,9 +129,7 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('', false));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(array(
-            'href'  => '/1.0/contents/1'
-        ));
+        $I->seeResponseContainsJson(['href'  => '/1.0/contents/1']);
     }
 
     /**
@@ -146,7 +140,7 @@ class ContentControllerCest
     {
         $I->wantTo('post With Empty Fields Returns 400 Error Code');
 
-        $I->sendPOST(ContentPage::route(), array());
+        $I->sendPOST(ContentPage::route(), []);
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
     }
 
@@ -180,9 +174,7 @@ class ContentControllerCest
 
     public function putWithInvalidIdAndInvalidDataReturns400ErrorCode(ApiTester $I)
     {
-        $I->sendPUT(ContentPage::route('/214234.json'), array(
-            'qwerty' => 'asdfgh',
-        ));
+        $I->sendPUT(ContentPage::route('/214234.json'), ['qwerty' => 'asdfgh']);
 
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
     }
@@ -192,14 +184,12 @@ class ContentControllerCest
         $title = 'example with invalid id';
         $body  = 'and valid data';
 
-        $I->sendPUT(ContentPage::route('/5555.json'), array(
+        $I->sendPUT(ContentPage::route('/5555.json'), [
             'title' => $title,
             'body' => $body,
-        ));
+        ]);
 
-        $id = $I->grabFromDatabase('contents', 'id', array(
-            'title'  => $title
-        ));
+        $id = $I->grabFromDatabase('contents', 'id', ['title'  => $title]);
 
         $I->seeResponseCodeIs(Response::HTTP_CREATED);
         $I->canSeeHttpHeader('Location', ContentPage::fullRoute('/' . $id));
@@ -207,9 +197,7 @@ class ContentControllerCest
 
     public function putWithValidIdAndInvalidDataReturns400ErrorCode(ApiTester $I)
     {
-        $I->sendPUT(ContentPage::route('/2.json'), array(
-            'ytrewq' => 'qwerty',
-        ));
+        $I->sendPUT(ContentPage::route('/2.json'), ['ytrewq' => 'qwerty']);
 
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
     }
@@ -219,14 +207,12 @@ class ContentControllerCest
         $title = 'valid id - new and improved title';
         $body  = 'valid data - new content here';
 
-        $I->sendPUT(ContentPage::route('/2.json'), array(
+        $I->sendPUT(ContentPage::route('/2.json'), [
             'title' => $title,
             'body' => $body,
-        ));
+        ]);
 
-        $newTitle = $I->grabFromDatabase('contents', 'title', array(
-            'id'  => 2
-        ));
+        $newTitle = $I->grabFromDatabase('contents', 'title', ['id'  => 2]);
 
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
         // full route is required because the location returns the full url
@@ -257,18 +243,12 @@ class ContentControllerCest
         $originalBody = "<h1>About</h1><p>stuff</p>";
 
         // send the patch
-        $I->sendPATCH(ContentPage::route('/2.json'), array(
-            'title' => $title,
-        ));
+        $I->sendPATCH(ContentPage::route('/2.json'), ['title' => $title]);
 
         // get the new title and existing body
-        $newTitle = $I->grabFromDatabase('contents', 'title', array(
-            'id'  => 2
-        ));
+        $newTitle = $I->grabFromDatabase('contents', 'title', ['id'  => 2]);
 
-        $existingBody = $I->grabFromDatabase('contents', 'body', array(
-            'id'  => 2
-        ));
+        $existingBody = $I->grabFromDatabase('contents', 'body', ['id'  => 2]);
 
         // ensure the response code, header location, title is correct, and body hasn't changed
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
@@ -292,15 +272,11 @@ class ContentControllerCest
 
     public function deleteWithValidArtistReturns204(ApiTester $I)
     {
-        $I->seeInDatabase('contents', array(
-            'id'    => 1,
-        ));
+        $I->seeInDatabase('contents', ['id'    => 1]);
 
         $I->sendDELETE(ContentPage::route('/1.json'));
 
-        $I->dontSeeInDatabase('contents', array(
-            'id'    => 1,
-        ));
+        $I->dontSeeInDatabase('contents', ['id'    => 1]);
 
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
     }

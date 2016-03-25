@@ -47,9 +47,7 @@ class LoginPage extends BasePage
         // check response
         $I->seeResponseCodeIs(JsonResponse::HTTP_OK);
 
-        return $I->grabDataFromResponseByJsonPath('token');
-
-//        return $I->grabDataFromResponseByJsonPath('$.token');
+        return $I->grabDataFromResponseByJsonPath('$.token');
     }
 
     /**
