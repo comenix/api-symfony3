@@ -14,7 +14,7 @@ use Symfony\Component\Process\Process;
 /**
  *
 USAGE:
-app/console Hip:rebuild_database --runtests dev
+bin/console Hip:rebuild_database --runtests dev
  *
  *
  * Class RebuildDatabaseCommand
@@ -76,13 +76,13 @@ class RebuildDatabaseCommand extends ContainerAwareCommand
 
     private function processFlattenTables()
     {
-        $process = new Process($this->rootDir . 'console doctrine:schema:drop ' . $this->env . ' --force');
+        $process = new Process($this->rootDir . '../bin/console doctrine:schema:drop ' . $this->env . ' --force');
         $this->runAndOutputProcess($process);
     }
 
     private function processReCreateSchema()
     {
-        $process = new Process($this->rootDir . 'console doctrine:schema:create ' . $this->env);
+        $process = new Process($this->rootDir . '../bin/console doctrine:schema:create ' . $this->env);
         $this->runAndOutputProcess($process);
     }
 
@@ -90,26 +90,26 @@ class RebuildDatabaseCommand extends ContainerAwareCommand
     {
         $cacheTypes = ['metadata', 'query', 'result'];
         foreach ($cacheTypes as $cacheType) {
-            $process = new Process($this->rootDir . 'console doctrine:cache:clear-' . $cacheType . ' ' . $this->env);
+            $process = new Process($this->rootDir . '../bin/console doctrine:cache:clear-' . $cacheType . ' ' . $this->env);
             $this->runAndOutputProcess($process);
         }
     }
 
     private function processLoadFixtures()
     {
-        $process = new Process($this->rootDir . 'console doctrine:fixtures:load -n ' . $this->env);
+        $process = new Process($this->rootDir . '../bin/console doctrine:fixtures:load -n ' . $this->env);
         $this->runAndOutputProcess($process);
     }
 
     private function processRunUnitTests()
     {
-        $process = new Process($this->rootDir . '../bin/codecept run unit');
+        $process = new Process($this->rootDir . '../vendor/bin/codecept run unit');
         $this->runAndOutputProcess($process);
     }
 
     private function processRunApiTests()
     {
-        $process = new Process($this->rootDir . '../bin/codecept run api');
+        $process = new Process($this->rootDir . '../vendor/bin/codecept run api');
         $this->runAndOutputProcess($process);
     }
 

@@ -3,22 +3,32 @@
 namespace Hip\AppBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-
 use Hip\AppBundle\Entity\User;
 use Hip\AppBundle\Exception\InvalidFormException;
 
 /**
- *
  * Class UserController
+ *
+ * By using "implements ClassResourceInterface" we can omit the Class name from the action methods
+ * "class ContentController extends FOSRestController implements ClassResourceInterface"
+ * For example, "getAction" instead of "getContentAction" and "cgetAction" instead of "getContentsAction"
+ * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#implicit-resource-name-definition
+ *
+ * Using this controller as the routing.yml resource, will tell Symfony to automatically generate proper REST routes
+ * from this controller action names.
+ * Notice "type: rest" option (in routing.yml) is required so that the RestBundle can find which routes are supported.
+ * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#single-restful-controller-routes
+ *
  * @package Hip\AppBundle\Controller
  */
-class UserController extends BaseController
+class UserController extends FOSRestController
 {
 
     /**
@@ -45,8 +55,7 @@ class UserController extends BaseController
      */
     public function getUserAction($id)
     {
-        $this->provider = $this->get('hip.app_bundle.user_provider');
-        return $this->fetchResponse($id);
+        return $this->get('hip.app_bundle.user_provider')->fetchResponse($id);
     }
     
     /**
@@ -81,15 +90,7 @@ class UserController extends BaseController
                 return $eventResponse;
             }
 
-            //TODO: return success message
-
-            /*
-            $routeOptions = [
-                'id' => $user->getId(),
-                '_format' => $request->get('_format')
-            ];
-            return $this->routeRedirectView('get_user', $routeOptions, Response::HTTP_CREATED);
-            */
+            return new JsonResponse(['result' => 'ok'], JsonResponse::HTTP_CREATED);
 
         } catch (InvalidFormException $e) {
             return $e->getForm();

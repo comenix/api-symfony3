@@ -1,18 +1,27 @@
 <?php
 
-namespace Hip\AppBundle\Form\Handler;
+namespace Hip\User\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Form\Factory\FormFactory;
+use Hip\AppBundle\Entity\User;
 use Hip\AppBundle\Exception\InvalidFormException;
-use Symfony\Component\Serializer\Exception\LogicException;
+use Symfony\Component\Form\Exception\AlreadySubmittedException;
+use Symfony\Component\Form\Exception\LogicException;
+use Symfony\Component\Validator\Exception\InvalidOptionsException;
 
 /**
- * Class BaseFormHandler
+ * Class FormHandler
  * @package Hip\AppBundle\Form\Handler
  */
-class UserFormHandler extends BaseFormHandler
+class UserFormHandler
 {
+    /** @var ObjectManager $entityManager */
+    protected $entityManager;
+    /** @var FormFactory $formFactory */
+    protected $formFactory;
+    /** @var string $formType */
+    protected $formType;
 
     /**
      * UserFormHandler constructor.
@@ -33,15 +42,11 @@ class UserFormHandler extends BaseFormHandler
      * @param $method
      * @return \Symfony\Component\Form\FormInterface
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException (if any given option
-     * is not applicable to the given type)
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException (if the form has already been submitted)
+     * @throws AlreadySubmittedException (if the form has already been submitted)
      * @throws InvalidFormException (if the form is invalid)
-     *
-     * Not type hinting BaseEntity $object because we set the form type in the constructor and
-     * symfony error is returned if invalid object
+     * @throws LogicException
      */
-    public function processForm($object, array $parameters, $method)
+    public function processForm(User $object, array $parameters, $method)
     {
         $options = ['method' => $method, 'csrf_protection' => false];
 
@@ -51,7 +56,7 @@ class UserFormHandler extends BaseFormHandler
         $form->submit($parameters, $method !== 'PATCH');
 
         if (!$form->isValid()) {
-//            exit($form->getErrors());
+            //exit($form->getErrors());
             throw new InvalidFormException($form);
         }
 
@@ -60,5 +65,17 @@ class UserFormHandler extends BaseFormHandler
         $this->entityManager->flush();
 
         return $data;
+    }
+
+    /**
+     * @param $object
+     * @return bool
+     */
+    public function delete($object)
+    {
+        $this->entityManager->remove($object);
+        $this->entityManager->flush();
+
+        return true;
     }
 }

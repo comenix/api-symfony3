@@ -1,6 +1,6 @@
 <?php
 
-use \Hip\AppBundle\Form\Handler\ContentFormHandler;
+use \Hip\Content\Form\Handler\ContentFormHandler;
 use \Hip\Content\Form\Type\ContentType;
 
 /**
@@ -37,10 +37,11 @@ class FormHandlerTest extends \Codeception\TestCase\Test
     public function testCanGrabFromServiceContainer()
     {
         static::assertInstanceOf(
-            'Hip\AppBundle\Form\Handler\ContentFormHandler',
+            'Hip\Content\Form\Handler\ContentFormHandler',
             $this->serviceContainer->get('hip.app_bundle.content_form_handler')
         );
     }
+
 
     /**
      * @expectedException TypeError
@@ -48,18 +49,19 @@ class FormHandlerTest extends \Codeception\TestCase\Test
      */
     public function testFormHandlerThrowsWhenGivenInvalidFormType()
     {
-        new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, new \StdClass());
+        new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, new \stdClass());
     }
 
     /**
-     * @expectedException Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException
-     * @expectedExceptionMessageRegExp /Neither the property "title" nor one of the methods/
+     * @expectedException TypeError
+     * @expectedExceptionMessageRegExp /Content, instance of stdClass given/
      */
     public function testProcessFormThrowsWhenGivenInvalidObjectForAGivenFormType()
     {
         $formHandler = new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, ContentType::class);
-        $formHandler->processForm(new \StdClass(), [], 'POST');
+        $formHandler->processForm(new \stdClass(), [], 'POST');
     }
+
 
     /**
      * @expectedException Hip\AppBundle\Exception\InvalidFormException
@@ -85,10 +87,8 @@ class FormHandlerTest extends \Codeception\TestCase\Test
     }
 
 
-
     public function testProcessFormReturnsValidObjectOnSuccess()
     {
-
         $formHandler = new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, ContentType::class);
 
         $parameters = ['title' => 'main title', 'body' => 'yada yada yada'];

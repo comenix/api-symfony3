@@ -19,7 +19,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  */
-class Content extends BaseEntity implements ContentInterface
+class Content implements ContentInterface
 {
     /**
      * @var integer

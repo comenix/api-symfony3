@@ -34,6 +34,10 @@ Load fixtures
 bin/console doctrine:fixtures:load -n --env=dev
 ```
 
+Rebuild database
+```
+bin/console Hip:rebuild_database --runtests dev
+```
 
 
 ### Testing Setup
@@ -135,9 +139,65 @@ Headers
 ### API Docs
 
 ```
-http://api.hiphiparray.dev/api/doc
+http://api.hiphiparray.dev/doc
 ```
 
 ### Authentication Notes
 
 - See https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md
+
+
+
+### Packages
+
+
+**friendsofsymfony/rest-bundle**
+- This Bundle provides various tools to rapidly develop RESTful API's with Symfony
+- https://packagist.org/packages/friendsofsymfony/rest-bundle
+
+
+**jms/serializer-bundle**
+- Allows you to easily serialize, and deserialize data of any complexity
+- https://packagist.org/packages/jms/serializer-bundle
+
+
+**nelmio/api-doc-bundle**
+- Generates documentation for your REST API from annotations
+- https://packagist.org/packages/nelmio/api-doc-bundle
+
+
+**doctrine/doctrine-migrations-bundle**
+- Symfony DoctrineMigrationsBundle
+- https://packagist.org/packages/doctrine/doctrine-migrations-bundle
+
+
+**willdurand/hateoas-bundle**
+- Integration of Hateoas into Symfony2
+- https://packagist.org/packages/willdurand/hateoas-bundle
+
+
+**friendsofsymfony/user-bundle**
+- Symfony FOSUserBundle
+- https://packagist.org/packages/friendsofsymfony/user-bundle
+
+
+**lexik/jwt-authentication-bundle**
+- This bundle provides Json Web Token (JWT) authentication for your Symfony REST API
+- https://packagist.org/packages/lexik/jwt-authentication-bundle
+
+
+**flow/jsonpath**
+- Used for codeception api testing
+- JSONPath implementation for parsing, searching and flattening arrays
+- https://packagist.org/packages/flow/jsonpath
+
+
+**doctrine/doctrine-fixtures-bundle**
+- Symfony DoctrineFixturesBundle
+- https://packagist.org/packages/doctrine/doctrine-fixtures-bundle
+
+
+**codeception/codeception**
+- BDD-style testing framework
+- https://packagist.org/packages/codeception/codeception
+

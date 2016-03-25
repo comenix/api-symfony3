@@ -1,18 +1,19 @@
 <?php
 
-namespace Hip\AppBundle\Form\Handler;
+namespace Hip\Content\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Hip\AppBundle\Entity;
 use Hip\AppBundle\Exception\InvalidFormException;
+use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormTypeInterface;
-use Hip\AppBundle\Entity\BaseEntity;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 /**
  * Class FormHandler
  * @package Hip\AppBundle\Form\Handler
  */
-class BaseFormHandler
+class ContentFormHandler
 {
     /** @var ObjectManager $entityManager */
     protected $entityManager;
@@ -40,14 +41,11 @@ class BaseFormHandler
      * @param $method
      * @return \Symfony\Component\Form\FormInterface
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException (if any given option is not applicable to the given type)
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException (if the form has already been submitted)
+     * @throws InvalidOptionsException (if any given option is not applicable to the given type)
+     * @throws AlreadySubmittedException (if the form has already been submitted)
      * @throws InvalidFormException (if the form is invalid)
-     *
-     * // not type hinting BaseEntity because we set the form type in the constructor and symfony error is returned if invalid object
-     * // public function processForm(BaseEntity $object, array $parameters, $method)
      */
-    public function processForm($object, array $parameters, $method)
+    public function processForm(Entity\Content $object, array $parameters, $method)
     {
         // if no html, then no csrf protection is okay
         $options = ['method' => $method, 'csrf_protection' => false];

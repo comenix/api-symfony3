@@ -25,7 +25,7 @@ services:
             - { name: form.type, alias: user_form }
 
     hip.app_bundle.user_form_handler:
-        class: Hip\AppBundle\Form\Handler\UserFormHandler
+        class: Hip\User\Form\Handler\UserFormHandler
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@fos_user.registration.form.factory"

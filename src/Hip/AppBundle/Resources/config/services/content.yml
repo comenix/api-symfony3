@@ -24,7 +24,7 @@ services:
             - { name: form.type, alias: content_form }
 
     hip.app_bundle.content_form_handler:
-        class: Hip\AppBundle\Form\Handler\ContentFormHandler
+        class: Hip\Content\Form\Handler\ContentFormHandler
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@form.factory"

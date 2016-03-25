@@ -1,6 +1,6 @@
 <?php
 
-namespace Hip\AppBundle\Provider;
+namespace Hip\User\Provider;
 
 /**
  * Interface ProviderInterface
@@ -9,10 +9,10 @@ namespace Hip\AppBundle\Provider;
 interface ProviderInterface
 {
     /**
-     * @param $id
+     * @param $userId
      * @return mixed
      */
-    public function get($id);
+    public function get($userId);
 
     /**
      * @param $limit

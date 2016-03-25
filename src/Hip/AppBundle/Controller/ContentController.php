@@ -4,25 +4,33 @@ namespace Hip\AppBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-use FOS\RestBundle\Controller\Annotations\Version;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Form\Exception\AlreadySubmittedException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-
 use Hip\AppBundle\Entity\Content;
 use Hip\AppBundle\Exception\InvalidFormException;
 
 /**
- *
  * Class ContentController
+ *
+ * By using "implements ClassResourceInterface" we can omit the Class name from the action methods
+ * "class ContentController extends FOSRestController implements ClassResourceInterface"
+ * For example, "getAction" instead of "getContentAction" and "cgetAction" instead of "getContentsAction"
+ * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#implicit-resource-name-definition
+ *
+ * Using this controller as the routing.yml resource, will tell Symfony to automatically generate proper REST routes
+ * from this controller action names.
+ * Notice "type: rest" option (in routing.yml) is required so that the RestBundle can find which routes are supported.
+ * see: http://symfony.com/doc/master/bundles/FOSRestBundle/5-automatic-route-generation_single-restful-controller.html#single-restful-controller-routes
+ *
  * @package Hip\AppBundle\Controller
  */
-class ContentController extends BaseController
+class ContentController extends FOSRestController
 {
 
     /**
@@ -49,8 +57,7 @@ class ContentController extends BaseController
      */
     public function getContentAction($id)
     {
-        $this->provider = $this->get('hip.app_bundle.content_provider');
-        return $this->fetchResponse($id);
+        return $this->get('hip.app_bundle.content_provider')->fetchResponse($id);
     }
 
     /**
@@ -202,10 +209,8 @@ class ContentController extends BaseController
     public function patchContentAction(Request $request, $id)
     {
         try {
-            $this->provider = $this->get('hip.app_bundle.content_provider');
-
             /** @var Content $content */
-            $content = $this->fetchResponse($id);
+            $content = $this->get('hip.app_bundle.content_provider')->fetchResponse($id);
             $content = $this->get('hip.app_bundle.content_dispatcher')->patch($content, $request->request->all());
             $routeOptions = [
                 'id' => $content->getId(),
@@ -240,10 +245,8 @@ class ContentController extends BaseController
      */
     public function deleteContentAction(Request $request, $id)
     {
-        $this->provider = $this->get('hip.app_bundle.content_provider');
-
         /** @var Content $content */
-        $content = $this->fetchResponse($id);
+        $content = $this->get('hip.app_bundle.content_provider')->fetchResponse($id);
         $this->get('hip.app_bundle.content_dispatcher')->delete($content);
     }
 }

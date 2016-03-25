@@ -1,9 +1,6 @@
 <?php
 namespace Hip\AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use FOS\OAuthServerBundle\Model\ClientInterface;
-use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -21,7 +18,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *     )
  * )
  */
-class User extends BaseUser
+class User extends \FOS\UserBundle\Model\User
 {
     /**
      * @ORM\Id
@@ -31,20 +28,22 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @return int
+     * @param $salt
+     * @return $this
      */
-    public function getId()
+    public function setSalt($salt)
     {
-        return $this->id;
+        $this->salt = $salt;
+        return $this;
     }
 
     /**
-     * @param int $id
-     * @return Content
+     * @param string $password
+     * @return $this
      */
-    public function setId($id)
+    public function setPassword($password)
     {
-        $this->id = $id;
+        $this->password = $password;
         return $this;
     }
 }
