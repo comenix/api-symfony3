@@ -3,12 +3,11 @@
 namespace Hip\Content\ValueObject;
 
 /**
- * Class ContentValueObject
+ * Class MenuValueObject
  * @package Hip\Content\ValueObject
  */
-class ContentValueObject
+class MenuValueObject
 {
     public $id;
     public $title;
-    public $body;
 }

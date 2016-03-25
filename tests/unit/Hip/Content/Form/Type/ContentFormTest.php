@@ -24,14 +24,17 @@ class ContentFormTest extends \Symfony\Component\Form\Test\TypeTestCase
      */
     public function testSubmitValidData()
     {
-        $formData = array(
+        $formData = [
             'title' => 'test',
-            'body' => 'test2',
-        );
+            'body'  => 'test2'
+        ];
 
         $form = $this->factory->create(\Hip\Content\Form\Type\ContentType::class, new \Hip\AppBundle\Entity\Content());
 
-        $object = \Hip\AppBundle\Entity\Content::fromArray($formData);
+        $object = new \Hip\AppBundle\Entity\Content();
+        $object
+            ->setTitle($formData['title'])
+            ->setBody($formData['body']);
 
         // submit the data to the form directly
         $form->submit($formData);
@@ -39,11 +42,10 @@ class ContentFormTest extends \Symfony\Component\Form\Test\TypeTestCase
         static::assertTrue($form->isSynchronized());
         static::assertEquals($object, $form->getData());
 
-        $view = $form->createView();
+        $view     = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
-            static::assertArrayHasKey($key, $children);
-        }
+        static::assertArrayHasKey('title', $children);
+        static::assertArrayHasKey('body', $children);
     }
 }

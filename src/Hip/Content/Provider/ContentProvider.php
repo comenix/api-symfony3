@@ -5,6 +5,8 @@ namespace Hip\Content\Provider;
 use Hip\Content\Form\Handler\ContentFormHandler;
 use Hip\AppBundle\Entity\Content;
 use Hip\Content\Repository\ContentRepository;
+use Hip\Content\ValueObject\Builder\ContentBuilder;
+use Hip\Content\ValueObject\Builder\MenuBuilder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -75,5 +77,56 @@ class ContentProvider implements ProviderInterface
         }
 
         return $response;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPageTitles()
+    {
+        $contents = $this->repository->findBy([]);
+        return MenuBuilder::buildMenuFromContents($contents);
+    }
+
+    /**
+     * @param $contentId
+     * @return \Hip\Content\ValueObject\PageValueObject
+     */
+    public function getPageContent($contentId)
+    {
+        //TODO: where page type = page
+        $pageContent = $this->get($contentId);
+
+        if ($pageContent === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return ContentBuilder::buildPageValueObject($pageContent);
+    }
+
+    /**
+     * @param $contentId
+     * @return \Hip\Content\ValueObject\PostValueObject
+     */
+    public function getPostContent($contentId)
+    {
+        //TODO: where post type = post
+        $postContent = $this->get($contentId);
+
+        if ($postContent === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return ContentBuilder::buildPostValueObject($postContent);
+    }
+
+    /**
+     * @return array
+     */
+    public function getHomePageContent()
+    {
+        //TODO: where page type = blog
+        $contents = $this->repository->findBy([]);
+        return ContentBuilder::buildBlogHomeFromContents($contents);
     }
 }

@@ -11,3 +11,15 @@ contents:
 users:
     type:     rest
     resource: Hip\AppBundle\Controller\UserController
+
+menus:
+    type:     rest
+    resource: Hip\AppBundle\Controller\MenuController
+
+pages:
+    type:     rest
+    resource: Hip\AppBundle\Controller\PageController
+
+posts:
+    type:     rest
+    resource: Hip\AppBundle\Controller\PostController
