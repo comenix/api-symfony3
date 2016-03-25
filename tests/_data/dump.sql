@@ -28,7 +28,6 @@ CREATE TABLE `contents` (
 insert  into `contents`(`id`,`title`,`body`) values 
 
 (1,'home','<h1>Home</h1><p>Welcome</p>'),
-
 (2,'about','<h1>About</h1><p>stuff</p>');
 
 /*Table structure for table `fos_user` */
@@ -56,9 +55,12 @@ CREATE TABLE `fos_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_957A647992FC23A8` (`username_canonical`),
   UNIQUE KEY `UNIQ_957A6479A0D96FBF` (`email_canonical`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fos_user` */
+
+insert  into `fos_user`(`id`,`username`,`username_canonical`,`email`,`email_canonical`,`enabled`,`salt`,`password`,`last_login`,`locked`,`expired`,`expires_at`,`confirmation_token`,`password_requested_at`,`roles`,`credentials_expired`,`credentials_expire_at`) values 
+(1,'tester','tester','test@example.com','test@example.com',1,'5y2aja6xtnwogkwoosw84c8os804sc0','$2y$13$EDLipNhk9kK1RxL94hmkR.Isug.4IVsKSQLbMqXKPqDy0tEM31Lq6',NULL,0,0,NULL,NULL,NULL,'a:0:{}',0,NULL);
 
 /*Table structure for table `migration_versions` */
 
@@ -74,7 +76,6 @@ CREATE TABLE `migration_versions` (
 insert  into `migration_versions`(`version`) values 
 
 ('20160313013526'),
-
 ('20160313022212');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
