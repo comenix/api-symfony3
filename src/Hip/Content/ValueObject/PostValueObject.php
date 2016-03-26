@@ -22,6 +22,7 @@ class PostValueObject implements ContentInterface
     public $id;
     public $title;
     public $body;
+    public $summary;
 
     public function getId()
     {

@@ -53,6 +53,31 @@ class PageController extends FOSRestController
     }
 
     /**
+     * Returns list of blog posts
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Retrieves content by id",
+     *  output = "Hip\Content\ValueObject\PostValueObject",
+     *  section="Pages",
+     *  statusCodes={
+     *         200="Returned when successful",
+     *         404="Returned when the requested Content is not found"
+     *     }
+     * )
+     *
+     * @View()
+     *
+     * @return \Hip\Content\ValueObject\PostValueObject
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getHomeAction()
+    {
+        return $this->get('hip.app_bundle.content_provider')->getHomeContent();
+    }
+
+    /**
      * Returns content when given a valid id
      *
      * @ApiDoc(
@@ -74,8 +99,8 @@ class PageController extends FOSRestController
      *
      * @throws NotFoundHttpException
      */
-    public function getPageHomeAction()
+    public function getSecureAction($id)
     {
-        return $this->get('hip.app_bundle.content_provider')->getHomePageContent();
+        return $this->get('hip.app_bundle.content_provider')->getSecureContent($id);
     }
 }

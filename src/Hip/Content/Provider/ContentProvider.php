@@ -37,9 +37,9 @@ class ContentProvider implements ProviderInterface
      */
     public function __construct(ContentRepository $contentRepository, ContentFormHandler $formHandler)
     {
-        $this->repository = $contentRepository;
+        $this->repository  = $contentRepository;
         $this->formHandler = $formHandler;
-        $this->object = new Content();
+        $this->object      = new Content();
     }
 
     /**
@@ -106,11 +106,27 @@ class ContentProvider implements ProviderInterface
 
     /**
      * @param $contentId
+     * @return \Hip\Content\ValueObject\PageValueObject
+     */
+    public function getSecureContent($contentId)
+    {
+        //TODO: where content type = secure
+        $pageContent = $this->get($contentId);
+
+        if ($pageContent === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return ContentBuilder::buildPageValueObject($pageContent);
+    }
+
+    /**
+     * @param $contentId
      * @return \Hip\Content\ValueObject\PostValueObject
      */
     public function getPostContent($contentId)
     {
-        //TODO: where post type = post
+        //TODO: where content type = post
         $postContent = $this->get($contentId);
 
         if ($postContent === null) {
@@ -123,10 +139,10 @@ class ContentProvider implements ProviderInterface
     /**
      * @return array
      */
-    public function getHomePageContent()
+    public function getHomeContent()
     {
-        //TODO: where page type = blog
+        //TODO: where content type = blog
         $contents = $this->repository->findBy([]);
-        return ContentBuilder::buildBlogHomeFromContents($contents);
+        return ContentBuilder::buildHomeFromContents($contents);
     }
 }

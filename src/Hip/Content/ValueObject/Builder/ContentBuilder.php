@@ -32,10 +32,12 @@ class ContentBuilder
      */
     public static function buildPostValueObject(Content $content)
     {
-        $post        = new PostValueObject();
-        $post->id    = $content->getId();
-        $post->title = $content->getTitle();
-        $post->body  = $content->getBody();
+        $post          = new PostValueObject();
+        $post->id      = $content->getId();
+        $post->title   = $content->getTitle();
+        $post->body    = $content->getBody();
+        $post->summary = substr($content->getBody(), 0, 100);
+
         return $post;
     }
 
@@ -43,13 +45,18 @@ class ContentBuilder
      * @param $contents
      * @return array
      */
-    public static function buildBlogHomeFromContents($contents)
+    public static function buildHomeFromContents($contents)
     {
-        $home        = [];
+        $home       = [];
+        $postObject = new PostValueObject();
         /** @var Content $content */
         foreach ($contents as $content) {
-            //TODO: use prototype pattern
-            $home[] = self::buildPostValueObject($content);
+            $post          = clone $postObject;
+            $post->id      = $content->getId();
+            $post->title   = $content->getTitle();
+            $post->summary = substr($content->getBody(), 0, 100);
+
+            $home[] = $post;
         }
 
         return $home;
