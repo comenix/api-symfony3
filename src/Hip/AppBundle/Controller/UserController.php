@@ -82,7 +82,7 @@ class UserController extends FOSRestController
      */
     public function getProfileAction($id)
     {
-        return $this->get('hip.app_bundle.user_provider')->fetchResponse($id);
+        return $this->get('hip.app_bundle.user_provider')->getProfile($id);
     }
 
     /**

@@ -5,8 +5,8 @@ namespace Hip\Content\Provider;
 use Hip\Content\Form\Handler\ContentFormHandler;
 use Hip\AppBundle\Entity\Content;
 use Hip\Content\Repository\ContentRepository;
-use Hip\Content\ValueObject\Builder\ContentBuilder;
-use Hip\Content\ValueObject\Builder\MenuBuilder;
+use Hip\Content\ValueObject\Factory\ContentFactory;
+use Hip\Content\ValueObject\Factory\MenuFactory;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -85,12 +85,12 @@ class ContentProvider implements ProviderInterface
     public function getPageTitles()
     {
         $contents = $this->repository->findBy([]);
-        return MenuBuilder::buildMenuFromContents($contents);
+        return MenuFactory::buildMenuFromContents($contents);
     }
 
     /**
      * @param $contentId
-     * @return \Hip\Content\ValueObject\PageValueObject
+     * @return \Hip\Content\ValueObject\Page
      */
     public function getPageContent($contentId)
     {
@@ -101,12 +101,12 @@ class ContentProvider implements ProviderInterface
             throw new NotFoundHttpException();
         }
 
-        return ContentBuilder::buildPageValueObject($pageContent);
+        return ContentFactory::buildPageValueObject($pageContent);
     }
 
     /**
      * @param $contentId
-     * @return \Hip\Content\ValueObject\PageValueObject
+     * @return \Hip\Content\ValueObject\Page
      */
     public function getSecureContent($contentId)
     {
@@ -117,12 +117,12 @@ class ContentProvider implements ProviderInterface
             throw new NotFoundHttpException();
         }
 
-        return ContentBuilder::buildPageValueObject($pageContent);
+        return ContentFactory::buildPageValueObject($pageContent);
     }
 
     /**
      * @param $contentId
-     * @return \Hip\Content\ValueObject\PostValueObject
+     * @return \Hip\Content\ValueObject\BlogPost
      */
     public function getPostContent($contentId)
     {
@@ -133,16 +133,18 @@ class ContentProvider implements ProviderInterface
             throw new NotFoundHttpException();
         }
 
-        return ContentBuilder::buildPostValueObject($postContent);
+        return ContentFactory::buildPostValueObject($postContent);
     }
 
     /**
+     * @param $limit
+     * @param $offset
      * @return array
      */
     public function getBlogPostsSummary($limit, $offset)
     {
         //TODO: where content type = blog
         $contents = $this->repository->findBy([], [], $limit, $offset);
-        return ContentBuilder::buildHomeFromContents($contents);
+        return ContentFactory::buildHomeFromContents($contents);
     }
 }

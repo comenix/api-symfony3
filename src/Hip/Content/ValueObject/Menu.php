@@ -6,7 +6,7 @@ namespace Hip\Content\ValueObject;
  * Class MenuValueObject
  * @package Hip\Content\ValueObject
  */
-class MenuValueObject
+class Menu
 {
     public $id;
     public $title;

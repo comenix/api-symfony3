@@ -39,7 +39,7 @@ class PostController extends FOSRestController
      * @ApiDoc(
      *  resource=true,
      *  description="Retrieves blog post content by id",
-     *  output = "Hip\Content\ValueObject\PostValueObject",
+     *  output = "Hip\Content\ValueObject\BlogPost",
      *  section="Blog Posts",
      *  statusCodes={
      *         200="Returned when successful",
@@ -51,7 +51,7 @@ class PostController extends FOSRestController
      *
      * @param $id
      *
-     * @return \Hip\Content\ValueObject\PostValueObject
+     * @return \Hip\Content\ValueObject\BlogPost
      *
      * @throws NotFoundHttpException
      */

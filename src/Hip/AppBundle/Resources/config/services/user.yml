@@ -32,6 +32,6 @@ services:
             - Hip\User\Form\Type\UserType
 
     hip.app_bundle.user_events:
-        class: Hip\User\Services\UserEvents
+        class: Hip\User\Event\UserEvents
         arguments:
             - "@event_dispatcher"

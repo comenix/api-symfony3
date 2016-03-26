@@ -1,15 +1,15 @@
 <?php
 
-namespace Hip\Content\ValueObject\Builder;
+namespace Hip\Content\ValueObject\Factory;
 
 use Hip\AppBundle\Entity\Content;
-use Hip\Content\ValueObject\MenuValueObject;
+use Hip\Content\ValueObject;
 
 /**
- * Class MenuBuilder
- * @package Hip\Content\ValueObjectBuilder
+ * Class MenuFactory
+ * @package Hip\Content\ValueObject\Factory
  */
-class MenuBuilder
+class MenuFactory
 {
 
     /**
@@ -19,7 +19,7 @@ class MenuBuilder
     public static function buildMenuFromContents($contents)
     {
         $menu        = [];
-        $valueObject = new MenuValueObject();
+        $valueObject = new ValueObject\Menu();
 
         /** @var Content $content */
         foreach ($contents as $content) {

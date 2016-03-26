@@ -1,6 +1,6 @@
 <?php
 
-namespace Hip\User\Services;
+namespace Hip\User\Event;
 
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
@@ -11,7 +11,7 @@ use \Hip\AppBundle\Entity\User;
 
 /**
  * Class UserEvents
- * @package Hip\User\Services
+ * @package Hip\User\Event
  */
 class UserEvents
 {

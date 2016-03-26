@@ -46,8 +46,11 @@ security:
         # Logged in users only
         - { path: ^/1.0/secure, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/1.0/profiles, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/1.0/users, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/1.0/contents, role: IS_AUTHENTICATED_FULLY }
         # Admin users only
-        - { path: ^/1.0/users, role: ROLE_SUPER_ADMIN }
-        - { path: ^/1.0/contents, role: ROLE_SUPER_ADMIN }
+#        //TODO: update security with api testing
+#        - { path: ^/1.0/users, role: ROLE_SUPER_ADMIN }
+#        - { path: ^/1.0/contents, role: ROLE_SUPER_ADMIN }
         # Everything else
         - { path: ^/1.0, role: ROLE_SUPER_ADMIN }

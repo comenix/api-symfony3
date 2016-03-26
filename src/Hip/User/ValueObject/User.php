@@ -3,10 +3,10 @@
 namespace Hip\User\ValueObject;
 
 /**
- * Class UserValueObject
+ * Class User
  * @package Hip\User\ValueObject
  */
-class UserValueObject
+class User
 {
     public $id;
     public $username;

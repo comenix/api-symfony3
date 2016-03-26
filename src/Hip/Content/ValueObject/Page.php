@@ -6,23 +6,22 @@ use Hateoas\Configuration\Annotation as Hateoas;
 use Hip\Content\Model\ContentInterface;
 
 /**
- * Class PostValueObject
+ * Class Page
  * @package Hip\Content\ValueObject
  *
  * @Hateoas\Relation(
  *     "self",
  *     href = @Hateoas\Route(
- *         "get_post",
+ *         "get_page",
  *         parameters={"id" = "expr(object.getId())"}
  *     )
  * )
  */
-class PostValueObject implements ContentInterface
+class Page implements ContentInterface
 {
     public $id;
     public $title;
     public $body;
-    public $summary;
 
     public function getId()
     {
@@ -33,7 +32,7 @@ class PostValueObject implements ContentInterface
     {
         return $this->title;
     }
-    
+
     public function getBody()
     {
         return $this->getBody();

@@ -1,25 +1,24 @@
 <?php
 
-namespace Hip\Content\ValueObject\Builder;
+namespace Hip\Content\ValueObject\Factory;
 
 use Hip\AppBundle\Entity\Content;
-use Hip\Content\ValueObject\PageValueObject;
-use Hip\Content\ValueObject\PostValueObject;
+use Hip\Content\ValueObject;
 
 /**
- * Class ContentBuilder
- * @package Hip\Content\ValueObjectBuilder
+ * Class ContentFactory
+ * @package Hip\Content\ValueObject\Factory
  */
-class ContentBuilder
+class ContentFactory
 {
 
     /**
      * @param Content $content
-     * @return PageValueObject
+     * @return ValueObject\Page
      */
     public static function buildPageValueObject(Content $content)
     {
-        $page        = new PageValueObject();
+        $page        = new ValueObject\Page();
         $page->id    = $content->getId();
         $page->title = $content->getTitle();
         $page->body  = $content->getBody();
@@ -28,11 +27,11 @@ class ContentBuilder
 
     /**
      * @param Content $content
-     * @return PostValueObject
+     * @return ValueObject\BlogPost
      */
     public static function buildPostValueObject(Content $content)
     {
-        $post          = new PostValueObject();
+        $post          = new ValueObject\BlogPost();
         $post->id      = $content->getId();
         $post->title   = $content->getTitle();
         $post->body    = $content->getBody();
@@ -48,7 +47,7 @@ class ContentBuilder
     public static function buildHomeFromContents($contents)
     {
         $home       = [];
-        $postObject = new PostValueObject();
+        $postObject = new ValueObject\BlogPost();
         /** @var Content $content */
         foreach ($contents as $content) {
             $post          = clone $postObject;

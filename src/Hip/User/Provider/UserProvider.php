@@ -5,6 +5,7 @@ namespace Hip\User\Provider;
 use Hip\User\Form\Handler\UserFormHandler;
 use Hip\AppBundle\Entity\User;
 use Hip\User\Repository\UserRepository;
+use Hip\User\ValueObject\Factory\UserFactory;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -77,5 +78,22 @@ class UserProvider implements ProviderInterface
         }
 
         return $response;
+    }
+
+    /**
+     * @param $userId
+     * @return \Hip\User\ValueObject\User
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getProfile($userId)
+    {
+        $user = $this->get($userId);
+
+        if ($user === null) {
+            throw new NotFoundHttpException();
+        }
+
+        return UserFactory::buildUserValueObject($user);
     }
 }
