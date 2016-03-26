@@ -139,10 +139,10 @@ class ContentProvider implements ProviderInterface
     /**
      * @return array
      */
-    public function getHomeContent()
+    public function getBlogPostsSummary($limit, $offset)
     {
         //TODO: where content type = blog
-        $contents = $this->repository->findBy([]);
+        $contents = $this->repository->findBy([], [], $limit, $offset);
         return ContentBuilder::buildHomeFromContents($contents);
     }
 }

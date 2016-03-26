@@ -38,9 +38,9 @@ class PostController extends FOSRestController
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Retrieves content by id",
-     *  output = "Hip\AppBundle\Entity\Content",
-     *  section="Posts",
+     *  description="Retrieves blog post content by id",
+     *  output = "Hip\Content\ValueObject\PostValueObject",
+     *  section="Blog Posts",
      *  statusCodes={
      *         200="Returned when successful",
      *         404="Returned when the requested Content is not found"
@@ -51,7 +51,7 @@ class PostController extends FOSRestController
      *
      * @param $id
      *
-     * @return \Hip\AppBundle\Entity\Content
+     * @return \Hip\Content\ValueObject\PostValueObject
      *
      * @throws NotFoundHttpException
      */
@@ -59,4 +59,42 @@ class PostController extends FOSRestController
     {
         return $this->get('hip.app_bundle.content_provider')->getPostContent($id);
     }
+
+    /**
+     * Returns a collection of Contents filtered by optional criteria
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Returns a collection of Blog Posts",
+     *  section="Blog Posts",
+     *  requirements={
+     *      {"name"="limit", "dataType"="integer", "requirement"="\d+", "description"="the max number of records to return"}
+     *  },
+     *  parameters={
+     *      {"name"="limit", "dataType"="integer", "required"=true, "description"="the max number of records to return"},
+     *      {"name"="offset", "dataType"="integer", "required"=false, "description"="the record number to start results at"}
+     *  }
+     * )
+     *
+     * @View()
+     *
+     * @QueryParam(name="limit", requirements="\d+", default="10", description="our limit")
+     * @QueryParam(name="offset", requirements="\d+", nullable=true, default="0", description="our offset")
+     *
+     * @param Request $request
+     * @param ParamFetcherInterface $paramFetcher
+     *
+     * @return array
+     */
+    public function getPostsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    {
+        /**
+         * Ensure "fos_rest: param_fetcher_listener: true" is set in the config.xml to allow for paramFetcher
+         * see https://github.com/FriendsOfSymfony/FOSRestBundle/blob/master/Resources/doc/3-listener-support.rst
+         */
+        $limit = $paramFetcher->get('limit');
+        $offset = $paramFetcher->get('offset');
+        return $this->get('hip.app_bundle.content_provider')->getBlogPostsSummary($limit, $offset);
+    }
+
 }
