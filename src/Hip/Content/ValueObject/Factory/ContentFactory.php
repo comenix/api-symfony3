@@ -35,7 +35,7 @@ class ContentFactory
         $post->id      = $content->getId();
         $post->title   = $content->getTitle();
         $post->body    = $content->getBody();
-        $post->summary = substr($content->getBody(), 0, 100);
+        //$post->summary = substr($content->getBody(), 0, 100);
 
         return $post;
     }
@@ -53,8 +53,9 @@ class ContentFactory
             $post          = clone $postObject;
             $post->id      = $content->getId();
             $post->title   = $content->getTitle();
-            $post->summary = substr($content->getBody(), 0, 100);
-
+            //TODO: create new field
+//            $post->summary = substr($content->getBody(), 0, 300);
+            $post->summary = $content->getBody();
             $home[] = $post;
         }
 
