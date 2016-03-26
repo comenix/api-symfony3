@@ -57,7 +57,34 @@ class UserController extends FOSRestController
     {
         return $this->get('hip.app_bundle.user_provider')->fetchResponse($id);
     }
-    
+
+    /**
+     * Returns user when given a valid id
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Retrieves user by id",
+     *  output = "Hip\AppBundle\Entity\User",
+     *  section="Users",
+     *  statusCodes={
+     *         200="Returned when successful",
+     *         404="Returned when the requested User is not found"
+     *     }
+     * )
+     *
+     * @View()
+     *
+     * @param $id
+     *
+     * @return \Hip\AppBundle\Entity\User
+     *
+     * @throws NotFoundHttpException
+     */
+    public function getProfileAction($id)
+    {
+        return $this->get('hip.app_bundle.user_provider')->fetchResponse($id);
+    }
+
     /**
      * @ApiDoc(
      *  resource=true,
