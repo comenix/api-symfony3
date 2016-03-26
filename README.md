@@ -43,11 +43,11 @@ bin/console Hip:rebuild_database --runtests dev
 ### Routes
 
 **Public Pages**
-- http://api.hiphiparray.dev/app_dev.php/1.0/docs
-- http://api.hiphiparray.dev/app_dev.php/1.0/home
-- http://api.hiphiparray.dev/app_dev.php/1.0/pages/1
+- http://api.hiphiparray.dev/app_dev.php/1.0/menu
+- http://api.hiphiparray.dev/app_dev.php/1.0/posts
 - http://api.hiphiparray.dev/app_dev.php/1.0/posts/1
-- http://api.hiphiparray.dev/app_dev.php/1.0/menu/1
+- http://api.hiphiparray.dev/app_dev.php/1.0/pages/1
+- http://api.hiphiparray.dev/app_dev.php/1.0/docs
 
 **Secure Pages**
 - http://api.hiphiparray.dev/app_dev.php/1.0/secures/1

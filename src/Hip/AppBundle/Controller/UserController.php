@@ -36,7 +36,7 @@ class UserController extends FOSRestController
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Retrieves user by id",
+     *  description="Retrieves user by id, admin access only",
      *  output = "Hip\AppBundle\Entity\User",
      *  section="Users",
      *  statusCodes={
@@ -63,7 +63,7 @@ class UserController extends FOSRestController
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Retrieves user by id",
+     *  description="Retrieves user profile by id, user can only view own profile",
      *  output = "Hip\AppBundle\Entity\User",
      *  section="Users",
      *  statusCodes={
