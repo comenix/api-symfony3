@@ -34,8 +34,20 @@ security:
             lexik_jwt: ~
 
     access_control:
+        # Unlocked pages
         - { path: ^/1.0/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/1.0/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/1.0/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/1.0/admin/, role: ROLE_ADMIN }
-        - { path: ^/1.0,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/1.0/home, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/1.0/page, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/1.0/post, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/1.0/menu, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/1.0/docs, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Logged in users only
+        - { path: ^/1.0/secure, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/1.0/profiles, roles: IS_AUTHENTICATED_FULLY }
+        # Admin users only
+        - { path: ^/1.0/users, role: ROLE_SUPER_ADMIN }
+        - { path: ^/1.0/contents, role: ROLE_SUPER_ADMIN }
+        # Everything else
+        - { path: ^/1.0, role: ROLE_SUPER_ADMIN }
