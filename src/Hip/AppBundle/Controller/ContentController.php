@@ -158,14 +158,11 @@ class ContentController extends FOSRestController
     public function putContentAction(Request $request, $id)
     {
         try {
-            // Use action for more complex logic
+            //TODO: review if action service is good idea (use where more than two dispatchers/providers)
             $action = $this->get('hip.app_bundle.content_action');
             $response = $action->putContentFromRequest($id, $request->request->all());
 
-            $routeOptions = [
-                'id' => $response['contentId'],
-                '_format' => $request->get('_format')
-            ];
+            $routeOptions = ['id' => $response['contentId'], '_format' => $request->get('_format')];
             return $this->routeRedirectView('get_content', $routeOptions, $response['statusCode']);
 
         } catch (InvalidFormException $e) {
@@ -204,11 +201,9 @@ class ContentController extends FOSRestController
         try {
             /** @var Content $content */
             $content = $this->get('hip.app_bundle.content_provider')->fetchResponse($id);
-            $content = $this->get('hip.app_bundle.content_dispatcher')->patch($content, $request->request->all());
-            $routeOptions = [
-                'id' => $content->getId(),
-                '_format' => $request->get('_format')
-            ];
+            $this->get('hip.app_bundle.content_dispatcher')->patch($content, $request->request->all());
+
+            $routeOptions = ['id' => $content->getId(), '_format' => $request->get('_format')];
             return $this->routeRedirectView('get_content', $routeOptions, Response::HTTP_NO_CONTENT);
 
         } catch (InvalidFormException $e) {
