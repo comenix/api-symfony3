@@ -31,7 +31,7 @@ services:
             - "@fos_user.registration.form.factory"
             - Hip\User\Form\Type\UserType
 
-    hip.app_bundle.user_events:
-        class: Hip\User\Event\UserEvents
+    hip.app_bundle.user_event:
+        class: Hip\User\Event\UserEvent
         arguments:
             - "@event_dispatcher"

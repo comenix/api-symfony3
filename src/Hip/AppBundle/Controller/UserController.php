@@ -112,7 +112,7 @@ class UserController extends FOSRestController
             /** @var User $user */
             $user = $this->get('hip.app_bundle.user_dispatcher')->post($request->request->all());
 
-            $eventResponse = $this->get('hip.app_bundle.user_events')->registrationInitialise($user, $request);
+            $eventResponse = $this->get('hip.app_bundle.user_event')->registrationInitialise($user, $request);
             if ($eventResponse !== null) {
                 return $eventResponse;
             }

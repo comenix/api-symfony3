@@ -4,3 +4,4 @@
 imports:
     - { resource: '@HipAppBundle/Resources/config/services/content.yml' }
     - { resource: '@HipAppBundle/Resources/config/services/user.yml' }
+    - { resource: '@HipAppBundle/Resources/config/services/action.yml' }

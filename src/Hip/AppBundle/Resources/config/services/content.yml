@@ -29,3 +29,8 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@form.factory"
             - Hip\Content\Form\Type\ContentType
+
+    hip.app_bundle.content_event:
+        class: Hip\Content\Event\ContentEvent
+        arguments:
+            - "@event_dispatcher"

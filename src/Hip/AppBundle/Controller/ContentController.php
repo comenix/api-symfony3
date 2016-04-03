@@ -157,28 +157,21 @@ class ContentController extends FOSRestController
      */
     public function putContentAction(Request $request, $id)
     {
-        //return new Response(null, Response::HTTP_BAD_REQUEST);
-        /** @var Content $content */
-        $content = $this->get('hip.app_bundle.content_provider')->get($id);
         try {
-            if ($content === null) {
-                $statusCode = Response::HTTP_CREATED;
-                $content = $this->get('hip.app_bundle.content_dispatcher')->post($request->request->all());
-            } else {
-                $statusCode = Response::HTTP_NO_CONTENT;
-                $content = $this->get('hip.app_bundle.content_dispatcher')->put($content, $request->request->all());
-            }
+            // Use action for more complex logic
+            $action = $this->get('hip.app_bundle.content_action');
+            $response = $action->putContentFromRequest($id, $request->request->all());
+
             $routeOptions = [
-                'id' => $content->getId(),
+                'id' => $response['contentId'],
                 '_format' => $request->get('_format')
             ];
-            return $this->routeRedirectView('get_content', $routeOptions, $statusCode);
+            return $this->routeRedirectView('get_content', $routeOptions, $response['statusCode']);
 
         } catch (InvalidFormException $e) {
             return $e->getForm();
         }
     }
-
 
     /**
      * @ApiDoc(

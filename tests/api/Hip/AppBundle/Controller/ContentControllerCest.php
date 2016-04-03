@@ -39,12 +39,14 @@ class ContentControllerCest
 
     public function getInvalidContent(ApiTester $I)
     {
+
         $I->wantTo('ensure getting an invalid Content id returns a 404 code');
 
         $I->sendGET(ContentPage::route('/555'));
         $I->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
         $I->seeResponseIsJson();
     }
+
 
     public function ensureDefaultResponseTypeIsJson(ApiTester $I)
     {
@@ -77,12 +79,12 @@ class ContentControllerCest
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'id' => 1,
-                'title'  => 'Veggies es bonus',
+                'id'    => 1,
+                'title' => 'Veggies es bonus',
             ],
             [
-                'id' => 2,
-                'title'  => 'Turnip greens',
+                'id'    => 2,
+                'title' => 'Turnip greens',
             ]
         );
     }
@@ -94,12 +96,14 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?limit=1'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson([
+        $I->seeResponseContainsJson(
             [
-                'id' => 1,
-                'title'  => 'Veggies es bonus',
-            ],
-        ]);
+                [
+                    'id'    => 1,
+                    'title' => 'Veggies es bonus',
+                ],
+            ]
+        );
     }
 
     public function getContentsCollectionWithOffset(ApiTester $I)
@@ -109,8 +113,9 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?offset=1'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['title'  => 'Turnip greens']);
+        $I->seeResponseContainsJson(['title' => 'Turnip greens']);
     }
+
 
     public function getContentsCollectionWithLimitAndOffset(ApiTester $I)
     {
@@ -119,8 +124,9 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?offset=1&limit=3'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['title'  => 'Turnip greens']);
+        $I->seeResponseContainsJson(['title' => 'Turnip greens']);
     }
+
 
     public function getContentsCollectionWithHateoasSelfHref(ApiTester $I)
     {
@@ -129,8 +135,9 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('', false));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['href'  => '/1.0/contents/1']);
+        $I->seeResponseContainsJson(['href' => '/1.0/contents/1']);
     }
+
 
     /**
      * POST TESTING
@@ -184,12 +191,8 @@ class ContentControllerCest
         $title = 'example with invalid id';
         $body  = 'and valid data';
 
-        $I->sendPUT(ContentPage::route('/5555.json'), [
-            'title' => $title,
-            'body' => $body,
-        ]);
-
-        $id = $I->grabFromDatabase('contents', 'id', ['title'  => $title]);
+        $I->sendPUT(ContentPage::route('/5555.json'), ['title' => $title, 'body' => $body,]);
+        $id = $I->grabFromDatabase('contents', 'id', ['title' => $title]);
 
         $I->seeResponseCodeIs(Response::HTTP_CREATED);
         $I->canSeeHttpHeader('Location', ContentPage::fullRoute('/' . $id));
@@ -198,7 +201,6 @@ class ContentControllerCest
     public function putWithValidIdAndInvalidDataReturns400ErrorCode(ApiTester $I)
     {
         $I->sendPUT(ContentPage::route('/2.json'), ['ytrewq' => 'qwerty']);
-
         $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
     }
 
@@ -207,12 +209,9 @@ class ContentControllerCest
         $title = 'valid id - new and improved title';
         $body  = 'valid data - new content here';
 
-        $I->sendPUT(ContentPage::route('/2.json'), [
-            'title' => $title,
-            'body' => $body,
-        ]);
+        $I->sendPUT(ContentPage::route('/2.json'), ['title' => $title, 'body' => $body,]);
 
-        $newTitle = $I->grabFromDatabase('contents', 'title', ['id'  => 2]);
+        $newTitle = $I->grabFromDatabase('contents', 'title', ['id' => 2]);
 
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
         // full route is required because the location returns the full url
@@ -246,9 +245,9 @@ class ContentControllerCest
         $I->sendPATCH(ContentPage::route('/2.json'), ['title' => $title]);
 
         // get the new title and existing body
-        $newTitle = $I->grabFromDatabase('contents', 'title', ['id'  => 2]);
+        $newTitle = $I->grabFromDatabase('contents', 'title', ['id' => 2]);
 
-        $existingBody = $I->grabFromDatabase('contents', 'body', ['id'  => 2]);
+        $existingBody = $I->grabFromDatabase('contents', 'body', ['id' => 2]);
 
         // ensure the response code, header location, title is correct, and body hasn't changed
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
@@ -272,11 +271,11 @@ class ContentControllerCest
 
     public function deleteWithValidArtistReturns204(ApiTester $I)
     {
-        $I->seeInDatabase('contents', ['id'    => 1]);
+        $I->seeInDatabase('contents', ['id' => 1]);
 
         $I->sendDELETE(ContentPage::route('/1.json'));
 
-        $I->dontSeeInDatabase('contents', ['id'    => 1]);
+        $I->dontSeeInDatabase('contents', ['id' => 1]);
 
         $I->seeResponseCodeIs(Response::HTTP_NO_CONTENT);
     }

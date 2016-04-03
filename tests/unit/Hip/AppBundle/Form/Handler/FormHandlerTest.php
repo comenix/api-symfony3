@@ -86,7 +86,6 @@ class FormHandlerTest extends \Codeception\TestCase\Test
         $formHandler->processForm(new \Hip\AppBundle\Entity\Content(), [], 'POST');
     }
 
-
     public function testProcessFormReturnsValidObjectOnSuccess()
     {
         $formHandler = new ContentFormHandler($this->getMockEntityManager(), $this->formFactory, ContentType::class);

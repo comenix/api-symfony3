@@ -1,0 +1,14 @@
+services:
+    hip.app_bundle.content_action:
+        class: Hip\AppBundle\Action\ContentAction
+        arguments:
+            - "@hip.app_bundle.content_dispatcher"
+            - "@hip.app_bundle.content_provider"
+            - "@hip.app_bundle.content_event"
+
+    hip.app_bundle.user_action:
+        class: Hip\AppBundle\Action\UserAction
+        arguments:
+            - "@hip.app_bundle.user_dispatcher"
+            - "@hip.app_bundle.user_provider"
+            - "@hip.app_bundle.user_event"
