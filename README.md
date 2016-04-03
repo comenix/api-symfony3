@@ -219,3 +219,6 @@ http://api.hiphiparray.dev/doc
 - BDD-style testing framework
 - https://packagist.org/packages/codeception/codeception
 
+**nelmio/cors-bundle**
+- The NelmioCorsBundle allows you to send Cross-Origin Resource Sharing headers
+- https://packagist.org/packages/nelmio/cors-bundle

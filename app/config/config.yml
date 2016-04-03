@@ -26,7 +26,7 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        name: %session_name%
+        name: '%session_name%'
         # Set these both to null to prevent: Warning: session_write_close(): Failed to write session data (user)
         handler_id: null
         save_path: null
@@ -126,3 +126,20 @@ fos_rest:
 ##    disable_csrf_role: ROLE_API
 
 nelmio_api_doc: ~
+
+nelmio_cors:
+    defaults:
+        allow_credentials: false
+        allow_origin: []
+        allow_headers: []
+        allow_methods: []
+        expose_headers: []
+        max_age: 0
+        hosts: []
+        origin_regex: false
+    paths:
+        '^/1.0/':
+            allow_origin: ['http://www.hiphiparray.dev']
+            allow_headers: ['Accept', 'Content-Type', 'Authorization']
+            allow_methods: ['OPTIONS', 'POST', 'PUT', 'GET', 'DELETE']
+            max_age: 3600
