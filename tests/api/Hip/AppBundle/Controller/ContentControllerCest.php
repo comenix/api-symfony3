@@ -78,11 +78,11 @@ class ContentControllerCest
         $I->seeResponseContainsJson(
             [
                 'id' => 1,
-                'title'  => 'home',
+                'title'  => 'Veggies es bonus',
             ],
             [
                 'id' => 2,
-                'title'  => 'about',
+                'title'  => 'Turnip greens',
             ]
         );
     }
@@ -97,7 +97,7 @@ class ContentControllerCest
         $I->seeResponseContainsJson([
             [
                 'id' => 1,
-                'title'  => 'home',
+                'title'  => 'Veggies es bonus',
             ],
         ]);
     }
@@ -109,7 +109,7 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?offset=1'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['title'  => 'about']);
+        $I->seeResponseContainsJson(['title'  => 'Turnip greens']);
     }
 
     public function getContentsCollectionWithLimitAndOffset(ApiTester $I)
@@ -119,7 +119,7 @@ class ContentControllerCest
         $I->sendGET(ContentPage::route('?offset=1&limit=3'));
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['title'  => 'about']);
+        $I->seeResponseContainsJson(['title'  => 'Turnip greens']);
     }
 
     public function getContentsCollectionWithHateoasSelfHref(ApiTester $I)
@@ -240,7 +240,7 @@ class ContentControllerCest
     public function patchWithValidIdAndValidDataReturns204(ApiTester $I)
     {
         $title        = 'valid id - newly patched title';
-        $originalBody = "<h1>About</h1><p>stuff</p>";
+        $originalBody = "Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin.";
 
         // send the patch
         $I->sendPATCH(ContentPage::route('/2.json'), ['title' => $title]);
@@ -287,6 +287,6 @@ class ContentControllerCest
      */
     private function validContentProvider()
     {
-        return [1 => ['title' => 'home'], 2 => ['title' => 'about']];
+        return [1 => ['title' => 'Veggies es bonus'], 2 => ['title' => 'Turnip greens']];
     }
 }

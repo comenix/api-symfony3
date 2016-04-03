@@ -1,8 +1,8 @@
 /*
+SQLyog Ultimate v12.2.1 (64 bit)
 MySQL - 10.1.12-MariaDB-1~trusty : Database - hiphiparray
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -21,14 +21,15 @@ CREATE TABLE `contents` (
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `body` longtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `contents` */
 
-insert  into `contents`(`id`,`title`,`body`) values 
-
-(1,'home','<h1>Home</h1><p>Welcome</p>'),
-(2,'about','<h1>About</h1><p>stuff</p>');
+insert  into `contents`(`id`,`title`,`body`) values 
+(1,'Veggies es bonus','Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.\r\nGumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato.\r\nGrape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic.'),
+(2,'Turnip greens','Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin.'),
+(3,'Nori grape','Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Salsify taro garlic gram celery bitterleaf wattle collard greens nori. Grape wattle kombu beetroot brussels sprout chard apple.'),
+(4,'Pea horseradish','Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea.');
 
 /*Table structure for table `fos_user` */
 
@@ -59,7 +60,7 @@ CREATE TABLE `fos_user` (
 
 /*Data for the table `fos_user` */
 
-insert  into `fos_user`(`id`,`username`,`username_canonical`,`email`,`email_canonical`,`enabled`,`salt`,`password`,`last_login`,`locked`,`expired`,`expires_at`,`confirmation_token`,`password_requested_at`,`roles`,`credentials_expired`,`credentials_expire_at`) values 
+insert  into `fos_user`(`id`,`username`,`username_canonical`,`email`,`email_canonical`,`enabled`,`salt`,`password`,`last_login`,`locked`,`expired`,`expires_at`,`confirmation_token`,`password_requested_at`,`roles`,`credentials_expired`,`credentials_expire_at`) values 
 (1,'tester','tester','test@example.com','test@example.com',1,'5y2aja6xtnwogkwoosw84c8os804sc0','$2y$13$EDLipNhk9kK1RxL94hmkR.Isug.4IVsKSQLbMqXKPqDy0tEM31Lq6',NULL,0,0,NULL,NULL,NULL,'a:0:{}',0,NULL);
 
 /*Table structure for table `migration_versions` */
@@ -73,9 +74,8 @@ CREATE TABLE `migration_versions` (
 
 /*Data for the table `migration_versions` */
 
-insert  into `migration_versions`(`version`) values 
-
-('20160313013526'),
+insert  into `migration_versions`(`version`) values 
+('20160313013526'),
 ('20160313022212');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

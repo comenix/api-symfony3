@@ -49,8 +49,12 @@ class LoadContentData extends AbstractFixture implements OrderedFixtureInterface
     private function getData()
     {
         return [
-            1 => ['title' => 'home', 'body' => '<h1>Home</h1><p>Welcome</p>', 'reference' => 'content-1'],
-            2 => ['title' => 'about', 'body' => '<h1>About</h1><p>stuff</p>', 'reference' => 'content-2'],
+            1 => ['title' => 'Veggies es bonus', 'body' => 'Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
+Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato.
+Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic.', 'reference' => 'content-1'],
+            2 => ['title' => 'Turnip greens', 'body' => 'Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin.', 'reference' => 'content-2'],
+            3 => ['title' => 'Nori grape', 'body' => 'Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Salsify taro garlic gram celery bitterleaf wattle collard greens nori. Grape wattle kombu beetroot brussels sprout chard apple.', 'reference' => 'content-3'],
+            4 => ['title' => 'Pea horseradish', 'body' => 'Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea.', 'reference' => 'content-4'],
         ];
     }
 }
